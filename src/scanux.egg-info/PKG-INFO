@@ -1,0 +1,81 @@
+Metadata-Version: 2.4
+Name: scanux
+Version: 1.1.27
+Summary: System security and performance scanner
+Author-email: Yassir aitelaizzi <yassir.aitelaizzi@gmail.com>
+Project-URL: Homepage, https://github.com/yourusername/scanux
+Project-URL: Issues, https://github.com/yourusername/scanux/issues
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: System Administrators
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: psutil>=5.9.0
+Requires-Dist: python-nmap>=0.7.1
+Requires-Dist: netifaces>=0.11.0
+Requires-Dist: rich>=10.0.0
+Requires-Dist: pyyaml>=6.0
+Dynamic: license-file
+
+# Scanux
+
+A system security and performance scanner that helps monitor and analyze system health, security, and performance metrics.
+
+## System Requirements
+
+Before installing scanux, ensure you have the following system dependencies installed:
+
+- nmap (Network Mapper)
+  - Ubuntu/Debian: `sudo apt-get install nmap`
+  - CentOS/RHEL: `sudo yum install nmap`
+  - macOS: `brew install nmap`
+
+## Features
+
+- System metrics monitoring (CPU, memory, disk usage)
+- Security scanning
+- Performance analysis
+- Network monitoring
+- Multiple output formats (text, JSON, YAML)
+
+## Installation
+
+1. Install system dependencies (see above)
+2. Install scanux:
+   ```bash
+   pip install scanux
+   ```
+
+## Usage
+
+```bash
+# Run a full system scan
+scanux
+
+# Show only issues
+scanux --issues-only
+
+# Output in JSON format
+scanux --json
+
+# Output in YAML format
+scanux --yaml
+
+# Run specific modules
+scanux --modules system security
+```
+
+## Requirements
+
+- Python 3.8 or higher
+- psutil
+- python-nmap
+- netifaces
+- rich
+- pyyaml
+
+## License
+
+MIT 

@@ -1,0 +1,2 @@
+[console_scripts]
+scanux = scanux.cli:main
