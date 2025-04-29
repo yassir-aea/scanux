@@ -26,10 +26,47 @@ class Module:
             self._check_sudo_config()
             self._check_system_updates()
             
+            # Create summary after all checks
+            self.metrics["summary"] = self.create_security_summary()
+            
             return self.metrics, self.issues
             
         except Exception as e:
             return {"error": str(e)}, []
+    
+    def create_security_summary(self) -> Dict[str, Any]:
+        """Create a summary of security issues found during scanning"""
+        severity_counts = {
+            "high": 0,
+            "medium": 0,
+            "low": 0
+        }
+        
+        # Count issues by severity
+        for issue in self.issues:
+            severity = issue.get("severity", "low")
+            severity_counts[severity] += 1
+        
+        # Calculate risk score (0-100)
+        # High severity issues count for 50 points
+        # Medium severity issues count for 30 points
+        # Low severity issues count for 20 points
+        total_issues = sum(severity_counts.values())
+        if total_issues > 0:
+            risk_score = min(100, (
+                (severity_counts["high"] * 50) +
+                (severity_counts["medium"] * 30) +
+                (severity_counts["low"] * 20)
+            ) / total_issues)
+        else:
+            risk_score = 0
+            
+        return {
+            "total_issues": total_issues,
+            "severity_distribution": severity_counts,
+            "risk_score": round(risk_score, 2),
+            "status": "critical" if risk_score > 70 else "warning" if risk_score > 30 else "good"
+        }
     
     def _check_root_login(self):
         """Check if root login is disabled"""
